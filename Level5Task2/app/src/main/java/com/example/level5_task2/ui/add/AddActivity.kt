@@ -1,8 +1,9 @@
-package com.example.level5_task2
+package com.example.level5_task2.ui.add
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.level5_task2.R
 
 import kotlinx.android.synthetic.main.activity_add.*
 
