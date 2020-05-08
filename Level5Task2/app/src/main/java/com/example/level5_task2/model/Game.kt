@@ -11,7 +11,7 @@ import java.util.*
 //A game consists of a title, platform and a release date.
 @Parcelize
 @Entity
-data class Note(
+data class Game (
     var title: String,
     var platform: String,
     var releaseDate: Date,
