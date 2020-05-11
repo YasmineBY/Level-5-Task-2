@@ -15,7 +15,7 @@ class GameRepository(context: Context) {
     }
 
     //add a new game
-    fun insertGame(game: Game?){
+    fun insertGame(game: Game){
         return gameDao.insertGame(game)
     }
 

@@ -12,6 +12,7 @@ import com.example.level5_task2.R
 import com.example.level5_task2.database.GameDao
 import com.example.level5_task2.database.GameRoomDatabase
 import com.example.level5_task2.model.Game
+import com.example.level5_task2.ui.add.AddActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.game_item.*
@@ -35,11 +36,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val intent = Intent(this, AddActivity::class.java)
+//            intent.putExtra(AddActivity.EXTRA_NOTE, mainActivityViewModel.note.value)
+            startActivity(intent)
         }
     }
 
+//    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//    .setAction("Action", null).show()
 
     private fun initViewModel() {
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)

@@ -7,6 +7,12 @@
     <string name="addActivity">AddActivity</string>
     <string name="title_activity_add">AddActivity</string>
 
+    <string name="title">title</string>
+    <string name="platform">platform</string>
+    <string name="day">day</string>
+    <string name="month">month</string>
+    <string name="year">year</string>
+
 
 
 </resources>

@@ -15,7 +15,7 @@ class AddActivityViewModel (application: Application) : AndroidViewModel(applica
     private val gameRepository = GameRepository(application.applicationContext)
     private val mainScope = CoroutineScope(Dispatchers.Main)
 
-    val game = MutableLiveData<Game?>()
+    val game = MutableLiveData<Game>()
     val error = MutableLiveData<String?>()
     val success = MutableLiveData<Boolean>()
 
@@ -24,7 +24,7 @@ class AddActivityViewModel (application: Application) : AndroidViewModel(applica
     fun addGame() {
         mainScope.launch {
             withContext(Dispatchers.IO) {
-                gameRepository.insertGame(game.value)
+                game.value?.let { gameRepository.insertGame(it) }
             }
             success.value = true
         }
