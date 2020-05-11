@@ -38,17 +38,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-
-
         rvGames.layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
         rvGames.adapter = gameAdapter
-        rvGames.addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+        rvGames.addItemDecoration(
+            DividerItemDecoration(
+                this@MainActivity,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         gameAdapter.notifyDataSetChanged()
         updateUI()
 
-
-        var newGameTest =  Game("header", "Platform", "02-10-10")
-        addGames(newGameTest)
         fab.setOnClickListener { view ->
             val intent = Intent(this, AddGameActivity::class.java)
             startActivity(intent)
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addGames(newGame: Game){
+    private fun addGames(newGame: Game) {
 
         mainScope.launch {
             withContext(Dispatchers.IO) {
@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
     private fun updateUI() {
@@ -78,8 +77,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun deleteAllGames() {
+        mainScope.launch {
+            val gameList = withContext(Dispatchers.IO) {
+                gameRepository.deleteAllGames()
+            }
+            this@MainActivity.games.clear()
+            this@MainActivity.gameAdapter.notifyDataSetChanged()
+        }
 
-
-
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.actioin_delete_games -> {
+                deleteAllGames()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 }
