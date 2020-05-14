@@ -23,8 +23,8 @@ class GameRepository(context: Context) {
     }
 
 
-    fun getAllGames() : MutableLiveData<List<Game>> {
-        return gameDao.getAllGames() ?: MutableLiveData(emptyList())
+    fun getAllGames() : LiveData<List<Game>> {
+        return gameDao.getAllGames()
     }
 
 

@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamebacklog.R
@@ -23,11 +25,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var gameRepository: GameRepository
 //    private val mainScope = CoroutineScope(Dispatchers.Main)
 //    private val games = arrayListOf<Game>()
 //    private val gameAdapter = GameAdapter(games)
 //    private lateinit var recyclerView: RecyclerView
+
+//    private lateinit var games: ArrayList<Game>
+//    private lateinit var gameRepository: GameRepository
+//    private lateinit var recyclerView: RecyclerView
+//    private lateinit var viewManager: RecyclerView.LayoutManager
+//    private val gameAdapter = GameAdapter(games)
+//    private val viewModel: MainActivityViewModel by viewModels()
 
     private lateinit var games: ArrayList<Game>
     private lateinit var recyclerView: RecyclerView
@@ -35,65 +43,39 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private val viewModel: MainActivityViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        gameRepository = GameRepository(this)
-        initViews()
+//        gameRepository = GameRepository(this)
+//        initViews()
 
-    }
+        recyclerView = findViewById(R.id.rvGames)
+        games = arrayListOf()
+        gameAdapter = GameAdapter(games)
+        viewManager = LinearLayoutManager(this)
+        createItemTouchHelper().attachToRecyclerView(recyclerView)
 
-    private fun initViews() {
-        rvGames.layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
-        rvGames.adapter = gameAdapter
-        rvGames.addItemDecoration(
-            DividerItemDecoration(
-                this@MainActivity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-        gameAdapter.notifyDataSetChanged()
-//        updateUI()
+        observeViewModel()
 
-        fab.setOnClickListener { view ->
-            val intent = Intent(this, AddGameActivity::class.java)
-            startActivity(intent)
-
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = gameAdapter
         }
+
     }
 
-//    private fun addGames(newGame: Game) {
-//
-//        mainScope.launch {
-//            withContext(Dispatchers.IO) {
-//                gameRepository.insertGame(newGame)
-//            }
-//        }
-//    }
-//
-//
-//    private fun updateUI() {
-//        mainScope.launch {
-//            val gameList = withContext(Dispatchers.IO) {
-//                gameRepository.getAllGames()
-//            }
-//            this@MainActivity.games.clear()
-//            this@MainActivity.games.addAll(gameList)
-//            this@MainActivity.gameAdapter.notifyDataSetChanged()
-//        }
-//    }
-//
-//    private fun deleteAllGames() {
-//        mainScope.launch {
-//            val gameList = withContext(Dispatchers.IO) {
-//                gameRepository.deleteAllGames()
-//            }
-//            this@MainActivity.games.clear()
-//            this@MainActivity.gameAdapter.notifyDataSetChanged()
-//        }
-//
-//    }
+
+    private fun observeViewModel() {
+    viewModel.listOfGames.observe(this, Observer {
+         games ->
+        this@MainActivity.games.clear()
+        this@MainActivity.games.addAll(games)
+        gameAdapter.notifyDataSetChanged()
+    })
+}
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -112,4 +94,46 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun createItemTouchHelper(): ItemTouchHelper {
+
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            // Callback triggered when a user swiped an item.
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val gameToDelete = games[position]
+
+//              todo delete game action
+            }
+        }
+        return ItemTouchHelper(callback)
+    }
+
+
 }
+//    private fun initViews() {
+//        rvGames.layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+//        rvGames.adapter = gameAdapter
+//        rvGames.addItemDecoration(
+//            DividerItemDecoration(
+//                this@MainActivity,
+//                DividerItemDecoration.VERTICAL
+//            )
+//        )
+//        gameAdapter.notifyDataSetChanged()
+////        updateUI()
+//
+//        fab.setOnClickListener { view ->
+//            val intent = Intent(this, AddGameActivity::class.java)
+//            startActivity(intent)
+//
+//        }
+//    }

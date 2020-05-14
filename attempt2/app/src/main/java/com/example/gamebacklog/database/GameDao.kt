@@ -12,7 +12,7 @@ import com.example.gamebacklog.model.Game
 interface GameDao {
 
     @Query("SELECT * FROM game_table")
-     fun getAllGames(): MutableLiveData<List<Game>>
+     fun getAllGames(): LiveData<List<Game>>
 
 //    @Query("SELECT * FROM game_table")
 //    suspend fun getAllGames(): List<Game>
