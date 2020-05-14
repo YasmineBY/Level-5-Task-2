@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,10 +24,16 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var gameRepository: GameRepository
-    private val mainScope = CoroutineScope(Dispatchers.Main)
-    private val games = arrayListOf<Game>()
-    private val gameAdapter = GameAdapter(games)
+//    private val mainScope = CoroutineScope(Dispatchers.Main)
+//    private val games = arrayListOf<Game>()
+//    private val gameAdapter = GameAdapter(games)
+//    private lateinit var recyclerView: RecyclerView
 
+    private lateinit var games: ArrayList<Game>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var gameAdapter: GameAdapter
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
         gameAdapter.notifyDataSetChanged()
-        updateUI()
+//        updateUI()
 
         fab.setOnClickListener { view ->
             val intent = Intent(this, AddGameActivity::class.java)
@@ -56,37 +63,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addGames(newGame: Game) {
-
-        mainScope.launch {
-            withContext(Dispatchers.IO) {
-                gameRepository.insertGame(newGame)
-            }
-        }
-    }
-
-
-    private fun updateUI() {
-        mainScope.launch {
-            val gameList = withContext(Dispatchers.IO) {
-                gameRepository.getAllGames()
-            }
-            this@MainActivity.games.clear()
-            this@MainActivity.games.addAll(gameList)
-            this@MainActivity.gameAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun deleteAllGames() {
-        mainScope.launch {
-            val gameList = withContext(Dispatchers.IO) {
-                gameRepository.deleteAllGames()
-            }
-            this@MainActivity.games.clear()
-            this@MainActivity.gameAdapter.notifyDataSetChanged()
-        }
-
-    }
+//    private fun addGames(newGame: Game) {
+//
+//        mainScope.launch {
+//            withContext(Dispatchers.IO) {
+//                gameRepository.insertGame(newGame)
+//            }
+//        }
+//    }
+//
+//
+//    private fun updateUI() {
+//        mainScope.launch {
+//            val gameList = withContext(Dispatchers.IO) {
+//                gameRepository.getAllGames()
+//            }
+//            this@MainActivity.games.clear()
+//            this@MainActivity.games.addAll(gameList)
+//            this@MainActivity.gameAdapter.notifyDataSetChanged()
+//        }
+//    }
+//
+//    private fun deleteAllGames() {
+//        mainScope.launch {
+//            val gameList = withContext(Dispatchers.IO) {
+//                gameRepository.deleteAllGames()
+//            }
+//            this@MainActivity.games.clear()
+//            this@MainActivity.gameAdapter.notifyDataSetChanged()
+//        }
+//
+//    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -98,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.actioin_delete_games -> {
-                deleteAllGames()
+//                deleteAllGames()
                 true
             }
             else -> super.onOptionsItemSelected(item)
