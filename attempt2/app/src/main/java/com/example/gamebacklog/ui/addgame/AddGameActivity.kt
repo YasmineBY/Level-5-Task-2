@@ -48,9 +48,14 @@ class AddGameActivity : AppCompatActivity() {
     fun retrieveNewGame():Game   {
         var newGameTitle = etGameTitle.text.toString()
         var newGamePlatform =  etPlatform.text.toString()
-        var newGameDate: String = etYear.text.toString() + "-" + etMonth.text.toString()+ "-" + etDay.text.toString()
-        var newGame = Game(newGameTitle,newGamePlatform, newGameDate)
+//        var newGameDate: String = etYear.text.toString() + "-" + etMonth.text.toString()+ "-" + etDay.text.toString()
+//        var newGame = Game(newGameTitle,newGamePlatform, newGameDate)
+        var newDate: Date = Date(2020-1-1)
+        var newGame = Game(newGameTitle,newGamePlatform, newDate)
+
+
         return newGame
+
     }
 
     private fun addGame(game: Game) {

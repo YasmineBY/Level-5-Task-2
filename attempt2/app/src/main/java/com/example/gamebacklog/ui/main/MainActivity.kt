@@ -64,7 +64,11 @@ class MainActivity : AppCompatActivity() {
             layoutManager = viewManager
             adapter = gameAdapter
         }
+        fab.setOnClickListener { view ->
+            val intent = Intent(this, AddGameActivity::class.java)
+            startActivity(intent)
 
+        }
     }
 
 
@@ -131,9 +135,5 @@ class MainActivity : AppCompatActivity() {
 //        gameAdapter.notifyDataSetChanged()
 ////        updateUI()
 //
-//        fab.setOnClickListener { view ->
-//            val intent = Intent(this, AddGameActivity::class.java)
-//            startActivity(intent)
-//
-//        }
+
 //    }
