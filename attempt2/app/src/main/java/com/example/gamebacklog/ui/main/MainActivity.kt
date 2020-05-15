@@ -2,7 +2,6 @@ package com.example.gamebacklog.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -13,30 +12,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamebacklog.R
-import com.example.gamebacklog.database.GameRepository
 import com.example.gamebacklog.model.Game
 import com.example.gamebacklog.ui.addgame.AddGameActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
 
 class MainActivity : AppCompatActivity() {
-//    private val mainScope = CoroutineScope(Dispatchers.Main)
-//    private val games = arrayListOf<Game>()
-//    private val gameAdapter = GameAdapter(games)
-//    private lateinit var recyclerView: RecyclerView
-
-//    private lateinit var games: ArrayList<Game>
-//    private lateinit var gameRepository: GameRepository
-//    private lateinit var recyclerView: RecyclerView
-//    private lateinit var viewManager: RecyclerView.LayoutManager
-//    private val gameAdapter = GameAdapter(games)
-//    private val viewModel: MainActivityViewModel by viewModels()
-
     private lateinit var games: ArrayList<Game>
     private lateinit var recyclerView: RecyclerView
     private lateinit var gameAdapter: GameAdapter
@@ -48,14 +30,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-//        gameRepository = GameRepository(this)
-//        initViews()
+        initViews()
+
+    }
+
+    private fun initViews() {
+        initalizeRecyclerView()
+        fab.setOnClickListener { view ->
+            val intent = Intent(this, AddGameActivity::class.java)
+            startActivity(intent)
+
+        }
+
+
+    }
+
+    private fun initalizeRecyclerView(){
 
         recyclerView = findViewById(R.id.rvGames)
         games = arrayListOf()
         gameAdapter = GameAdapter(games)
         viewManager = LinearLayoutManager(this)
         createItemTouchHelper().attachToRecyclerView(recyclerView)
+
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this@MainActivity,
+                DividerItemDecoration.VERTICAL
+            )
+        )
 
         observeViewModel()
 
@@ -64,12 +67,8 @@ class MainActivity : AppCompatActivity() {
             layoutManager = viewManager
             adapter = gameAdapter
         }
-        fab.setOnClickListener { view ->
-            val intent = Intent(this, AddGameActivity::class.java)
-            startActivity(intent)
-
-        }
     }
+
 
 
     private fun observeViewModel() {
@@ -80,15 +79,17 @@ class MainActivity : AppCompatActivity() {
         gameAdapter.notifyDataSetChanged()
     })
 }
+
+    // Inflate the menu; this adds items to the action bar if it is present.
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
+
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.actioin_delete_games -> {
 //                deleteAllGames()
@@ -135,5 +136,5 @@ class MainActivity : AppCompatActivity() {
 //        gameAdapter.notifyDataSetChanged()
 ////        updateUI()
 //
-
+//
 //    }

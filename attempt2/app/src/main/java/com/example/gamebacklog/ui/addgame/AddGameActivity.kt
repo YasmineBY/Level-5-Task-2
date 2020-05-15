@@ -3,6 +3,7 @@ package com.example.gamebacklog.ui.addgame
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gamebacklog.R
@@ -22,27 +23,33 @@ import java.util.*
 class AddGameActivity : AppCompatActivity() {
     private lateinit var gameRepository: GameRepository
     private val mainScope = CoroutineScope(Dispatchers.Main)
-    private val games = arrayListOf<Game>()
-    private val gameAdapter = GameAdapter(games)
+
+    private val viewModel: AddGameActivityViewModel by viewModels()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game)
         setSupportActionBar(toolbar)
 
-        gameRepository = GameRepository(this)
         initViews()
     }
 
-    private fun initViews() {
 
+    private fun initViews() {
         fab.setOnClickListener { view ->
             retrieveNewGame()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            addGame(retrieveNewGame())
+            insertGame()
         }
 
+    }
+
+    fun insertGame() {
+        var newGame = retrieveNewGame()
+        viewModel.insertGame(newGame)
     }
 
     fun retrieveNewGame():Game   {
