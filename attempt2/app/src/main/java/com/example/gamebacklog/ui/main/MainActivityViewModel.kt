@@ -24,18 +24,16 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun deleteAllGames() {
         mainScope.launch {
             withContext(Dispatchers.IO) {
-//                gameRepository.insertGame(game)
+                gameRepository.deleteAllGames()
             }
-//            success.value = true
+        }
+    }
+    fun deleteGame(game: Game) {
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                gameRepository.deleteGame(game)
+            }
         }
     }
 
-
 }
-
-//    fun insertGame(game: Game) {
-//        ioScope.launch {
-//            gameRepository.insertGame(game)
-//        }
-//    }
-

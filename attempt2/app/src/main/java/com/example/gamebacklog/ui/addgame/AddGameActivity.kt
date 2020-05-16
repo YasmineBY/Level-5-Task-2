@@ -55,10 +55,15 @@ class AddGameActivity : AppCompatActivity() {
     fun retrieveNewGame():Game   {
         var newGameTitle = etGameTitle.text.toString()
         var newGamePlatform =  etPlatform.text.toString()
-//        var newGameDate: String = etYear.text.toString() + "-" + etMonth.text.toString()+ "-" + etDay.text.toString()
-//        var newGame = Game(newGameTitle,newGamePlatform, newGameDate)
-        var newDate: Date = Date(2020-1-1)
+        var newGameDate: String = etYear.text.toString() + "-" + etMonth.text.toString()+ "-" + etDay.text.toString()
+        var year: Int = etYear.text.toString().toInt()
+        var month: Int = etMonth.text.toString().toInt()
+        var day: Int = etDay.text.toString().toInt()
+
+        var newDate: Date = Date(year, day, month)
         var newGame = Game(newGameTitle,newGamePlatform, newDate)
+        var date: Date = Date(2020-1-1)
+//        var newGame = Game(newGameTitle,newGamePlatform, newDate)
 
 
         return newGame
@@ -74,24 +79,6 @@ class AddGameActivity : AppCompatActivity() {
     }
 
 
-//    fun getMonthOfDate(receivedMonth: String): String {
-//        var month: String =""
-//        when(receivedMonth){
-//            "1" -> month = "January"
-//            "2" -> month = "February"
-//            "3" -> month = "March"
-//            "4" -> month = "April"
-//            "5" -> month = "May"
-//            "6" -> month = "June"
-//            "7" -> month = "July"
-//            "8" -> month = "August"
-//            "9" -> month = "September"
-//            "10" -> month = "October"
-//            "11" -> month = "November"
-//            "12" -> month = "December"
-//        }
-//        return month
-//    }
 
 
 }

@@ -14,12 +14,11 @@ interface GameDao {
     @Query("SELECT * FROM game_table ORDER BY releaseDate DESC")
      fun getAllGames(): LiveData<List<Game>>
 
-//
-//    @Query("SELECT * FROM game_table")
-//    fun getAllGames(): LiveData<List<Game>>
-
     @Insert
     suspend fun insertGame(game: Game)
+
+    @Delete
+    fun deleteGame(game: Game)
 
     @Query("DELETE FROM game_table")
     suspend fun deleteAllGames()

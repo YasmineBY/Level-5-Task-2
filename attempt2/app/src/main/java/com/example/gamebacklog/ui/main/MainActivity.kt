@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.actioin_delete_games -> {
-//                deleteAllGames()
+                viewModel.deleteAllGames()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -115,8 +115,7 @@ class MainActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val gameToDelete = games[position]
-
-//              todo delete game action
+                viewModel.deleteGame(gameToDelete)
             }
         }
         return ItemTouchHelper(callback)
@@ -124,17 +123,4 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-//    private fun initViews() {
-//        rvGames.layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
-//        rvGames.adapter = gameAdapter
-//        rvGames.addItemDecoration(
-//            DividerItemDecoration(
-//                this@MainActivity,
-//                DividerItemDecoration.VERTICAL
-//            )
-//        )
-//        gameAdapter.notifyDataSetChanged()
-////        updateUI()
-//
-//
-//    }
+
