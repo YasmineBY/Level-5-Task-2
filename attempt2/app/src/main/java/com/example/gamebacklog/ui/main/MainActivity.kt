@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         initViews()
-
     }
 
     private fun initViews() {
@@ -39,13 +38,10 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             val intent = Intent(this, AddGameActivity::class.java)
             startActivity(intent)
-
         }
-
-
     }
 
-    private fun initalizeRecyclerView(){
+    private fun initalizeRecyclerView() {
 
         recyclerView = findViewById(R.id.rvGames)
         games = arrayListOf()
@@ -61,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         observeViewModel()
-
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = viewManager

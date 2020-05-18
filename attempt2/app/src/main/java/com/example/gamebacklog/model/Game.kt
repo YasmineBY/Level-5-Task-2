@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-@Parcelize
 @Entity(tableName = "game_table")
 data class Game (
     var title: String,
@@ -14,4 +13,4 @@ data class Game (
     var releaseDate: Date,
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null
-) : Parcelable
+)

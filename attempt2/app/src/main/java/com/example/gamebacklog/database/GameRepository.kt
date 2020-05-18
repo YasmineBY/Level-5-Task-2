@@ -10,11 +10,6 @@ class GameRepository(context: Context) {
     //todo remove the Context by redoing the Init
     var gameDao:GameDao
 
-//    init {
-//        val database = GameRoomDatabase.getDatabase(context)
-//        reminderDao = reminderRoomDatabase?.reminderDao()
-//    }
-
 
     init {
         val database =
@@ -29,10 +24,9 @@ class GameRepository(context: Context) {
 
 
 
-//    suspend fun getAllGames(): List<Game> = gameDao.getAllGames()
     suspend fun insertGame(game: Game)= gameDao.insertGame(game)
     suspend fun deleteAllGames()= gameDao.deleteAllGames()
-    suspend fun deleteGame(game: Game) = gameDao.deleteGame(game)
+    fun deleteGame(game: Game) = gameDao.deleteGame(game)
 
 
 }

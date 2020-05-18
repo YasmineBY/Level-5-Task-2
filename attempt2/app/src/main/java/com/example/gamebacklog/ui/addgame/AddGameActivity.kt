@@ -52,6 +52,8 @@ class AddGameActivity : AppCompatActivity() {
         viewModel.insertGame(newGame)
     }
 
+
+    //todo look at Date variable
     fun retrieveNewGame():Game   {
         var newGameTitle = etGameTitle.text.toString()
         var newGamePlatform =  etPlatform.text.toString()
@@ -60,10 +62,12 @@ class AddGameActivity : AppCompatActivity() {
         var month: Int = etMonth.text.toString().toInt()
         var day: Int = etDay.text.toString().toInt()
 
-        var newDate: Date = Date(year, day, month)
+//        var newDate: Date = Date(year, day, month)
+//        int year = je jaar -1900
+        var newDate = Date(2000,5,1)
+        newDate.year =1800;
         var newGame = Game(newGameTitle,newGamePlatform, newDate)
-        var date: Date = Date(2020-1-1)
-//        var newGame = Game(newGameTitle,newGamePlatform, newDate)
+
 
 
         return newGame
