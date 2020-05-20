@@ -10,8 +10,6 @@ import com.example.gamebacklog.model.Game
 @Database(entities = [Game::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class GameRoomDatabase : RoomDatabase() {
-
-
     abstract fun gameDao(): GameDao
     companion object {
         private const val DATABASE_NAME = "GAME_DATABASE"

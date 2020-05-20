@@ -59,9 +59,16 @@ class AddGameActivity : AppCompatActivity() {
         var year: Int = etYear.text.toString().toInt()
         var month: Int = etMonth.text.toString().toInt()
         var day: Int = etDay.text.toString().toInt()
-
         var newDate: Date = Date(year, day, month)
-        var newGame = Game(newGameTitle,newGamePlatform, newDate)
+        //todo how to format date
+        val calendar = Calendar.getInstance()
+        calendar.set(year, day, month)
+
+
+//        val game = ( calendar.time)
+//        val time = Calendar.Builder()
+
+        var newGame = Game(newGameTitle,newGamePlatform, calendar.time)
         var date: Date = Date(2020-1-1)
 //        var newGame = Game(newGameTitle,newGamePlatform, newDate)
 
