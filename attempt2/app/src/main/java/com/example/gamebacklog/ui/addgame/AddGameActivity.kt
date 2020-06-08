@@ -21,9 +21,6 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class AddGameActivity : AppCompatActivity() {
-    private lateinit var gameRepository: GameRepository
-    private val mainScope = CoroutineScope(Dispatchers.Main)
-
     private val viewModel: AddGameActivityViewModel by viewModels()
 
 
@@ -32,7 +29,6 @@ class AddGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_game)
         setSupportActionBar(toolbar)
-
         initViews()
     }
 
@@ -55,37 +51,15 @@ class AddGameActivity : AppCompatActivity() {
     fun retrieveNewGame():Game   {
         var newGameTitle = etGameTitle.text.toString()
         var newGamePlatform =  etPlatform.text.toString()
-        var newGameDate: String = etYear.text.toString() + "-" + etMonth.text.toString()+ "-" + etDay.text.toString()
         var year: Int = etYear.text.toString().toInt()
         var month: Int = etMonth.text.toString().toInt()
         var day: Int = etDay.text.toString().toInt()
-        var newDate: Date = Date(year, day, month)
-        //todo how to format date
         val calendar = Calendar.getInstance()
         calendar.set(year, day, month)
 
-
-//        val game = ( calendar.time)
-//        val time = Calendar.Builder()
-
         var newGame = Game(newGameTitle,newGamePlatform, calendar.time)
-        var date: Date = Date(2020-1-1)
-//        var newGame = Game(newGameTitle,newGamePlatform, newDate)
-
-
         return newGame
 
     }
-
-    private fun addGame(game: Game) {
-        mainScope.launch {
-            withContext(Dispatchers.IO) {
-                gameRepository.insertGame(game)
-            }
-        }
-    }
-
-
-
 
 }

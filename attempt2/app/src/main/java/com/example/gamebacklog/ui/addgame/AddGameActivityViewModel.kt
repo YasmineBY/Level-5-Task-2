@@ -17,7 +17,6 @@ class AddGameActivityViewModel(application: Application) : AndroidViewModel(appl
     val success = MutableLiveData<Boolean>()
 
 
-
     fun insertGame(game: Game) {
         mainScope.launch {
             withContext(Dispatchers.IO) {
@@ -26,9 +25,6 @@ class AddGameActivityViewModel(application: Application) : AndroidViewModel(appl
             success.value = true
         }
     }
-
-
-
 
 
 }

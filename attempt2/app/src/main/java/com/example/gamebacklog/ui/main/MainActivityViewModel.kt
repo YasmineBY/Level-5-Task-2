@@ -20,7 +20,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val listOfGames: LiveData<List<Game>> = gameRepository.getAllGames()
 
 
-    //todo delete all games function
     fun deleteAllGames() {
         mainScope.launch {
             withContext(Dispatchers.IO) {

@@ -23,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="temp"
                 android:textSize="24sp"
                 android:textStyle="italic" />
 
@@ -34,18 +33,16 @@
 
                 <TextView
                     android:id="@+id/txtPlatform"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="TextView"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/txtDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -7,15 +7,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamebacklog.R
 import com.example.gamebacklog.model.Game
 import kotlinx.android.synthetic.main.item_game.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class GameAdapter (private val games: List<Game>) : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
+
+    fun formatDate(receivedDate: Date): String {
+        var formatDate: SimpleDateFormat? = SimpleDateFormat("MMM d yyyy ")
+        var formattedDate = formatDate?.format(receivedDate)
+        return  "Release: " +  formattedDate.toString()
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(game: Game) {
             itemView.txtGameName.text = game.title
             itemView.txtPlatform.text = game.platform
-            itemView.txtDate.text = game.releaseDate.toString()
+            itemView.txtDate.text = formatDate(game.releaseDate)
         }
     }
 
